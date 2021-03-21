@@ -31,48 +31,67 @@ body {
 
 
 .container {
-    /* background:green; */
+    position: absolute;
     display:grid;
     grid-template-rows:1fr 2rem;
-
-    width:80%;
-    margin:0 auto;
+    grid-row-gap:0.5rem;
+    width:70%;
+    left:50%;
+    top:50%;
+    transform:translate(-50%, -50%);
 }
 
 .container__inner {
-    background:orange;
-
     display:grid;
     /*column : left - right*/
-    grid-template-columns: 3rem 1fr 3rem;
-    justify-content: center;
-    align-items: center;
-
+    grid-template-columns:minmax(2rem, 3rem) minmax(20rem, 1fr) minmax(2rem, 3rem);
+    grid-column-gap:0.5rem;
 }
 
 .slide-btn {
     border:none;
     background:none;
     font-size:1.5rem;
+    transition: opacity 0.25s ease;
+}
+
+.slide-btn:hover {
+    cursor: pointer;
+    opacity:0.7;
+}
+
+.slide-btn:active {
+    opacity:1;
 }
 
 
 .image-slider-items {
     position: relative;
-    height:30rem;
+    height:40rem;
 }
 
 .image-slider-item {
     position: absolute;
-    /* width:50rem; */
+    width:100%;
     height:100%;
+    border-radius: 10px;
+    transition:all 0.5s ease;
+    filter:saturate(0) blur(3px);
+    box-shadow:2px 2px 5px #8583821a;
+}
+/*applied on the image slider item*/
+.image-slider-item--current {
+    filter:saturate(1.5) blur(0px);
+    box-shadow:5px 5px 10px #85838233;
 }
 
 .image-slider-item__img {
+    border:none;
     width:100%;
     height:100%;
+    border-radius: inherit;
     object-fit: cover;
-    image-rendering: optimizeSpeed;
+    object-position: center center;
 }
 
 .dots {
@@ -80,7 +99,6 @@ body {
     display:flex;
     justify-content: center;
     align-items:center;
-    /* width:inherit; */
     width:10rem;
 }
 
@@ -91,11 +109,46 @@ body {
     height:8px;
     border-radius: 50%;
     margin:0 0.2rem;
-    transition: all 1s ease;
+    transition: all 0.5s ease;
 }
 
+:not(.dot--current).dot:hover {
+    background:var(--black);
+    cursor: pointer;
+}
+
+:not(.dot--current).dot:active {
+    background:var(--black);
+    opacity:0.7;
+}
+
+/*applied on the current dot*/
 .dot--current {
     background:var(--red);
-    width:12px;
-    height:12px;
+    transform:scale(1.5);
+}
+
+
+
+/*placement of the images,
+replace this later w/ javascript*/
+
+.image-slider-item:nth-child(1) {
+    transform: translateX(0%);
+}
+
+.image-slider-item:nth-child(2) {
+    transform: translateX(106%);
+}
+
+.image-slider-item:nth-child(3) {
+    transform: translateX(206%);
+}
+
+.image-slider-item:nth-child(4) {
+    transform: translateX(306%);
+}
+
+.image-slider-item:nth-child(5) {
+    transform: translateX(406%);
 }
