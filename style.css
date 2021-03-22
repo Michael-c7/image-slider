@@ -72,6 +72,7 @@ body {
 
 /*move the image-container to slide the images right / left*/
 .images-container {
+    transition: all 0.5s ease;
     transform: translateX(-0%);
 }
 
