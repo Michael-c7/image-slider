@@ -6,77 +6,78 @@ let containerInner = document.querySelector(".container__inner")
 let imageContainer = document.querySelector(".images-container")
 let dots = document.querySelector(".dots");
 
-
 let counter = 0;
+
+
+
+
 
 function slide(event) {
     let currentSlide = document.querySelector(".image-slider-item--current");
     let prevSlide = currentSlide.previousElementSibling;
     let nextSlide = currentSlide.nextElementSibling;
-    let items = Array.from(slideItems.children)
+    let allSlideItems = Array.from(slideItems.children)
 
     /*btn*/
     let currentBtn = event.target.closest(".slide-btn");
 
-    /*Either create a counter,
-    +1 for each nextbtn click and -1 for each prevBtn click,
+    // let SlidesIndexesArr = allSlideItems.map((item, index) =>  index);
+    // let slideIndexFirst = allSlideItems[0];
+    // let slideIndexLast = parseInt(SlidesIndexesArr.slice(SlidesIndexesArr.length - 1));
+    // let slideLastPositionNumber = Number(slideIndexLast + "00");
 
-    or count the current slide and use the index number from that.
-
-    - first slide is at 0%,
-      second slide is at 100%,
-      3rd slide is at 200%, ect
-    ----------
-    // - when you move to the next slide / prev slide
-    loop through each slide and remove .image-slider-item--current and
-    then apply the .image-slider-item--current to the current item
-
-    */
-
+// next slide
     if(currentBtn.classList.contains("prev-slide-btn")) {
         console.log("the prev btn")
 
         /*counter*/
         counter-=100;
-
+        // move slide
         imageContainer.style = `transform: translateX(${-counter}%)`;
-
-        items.forEach(element => {
+        // remove all classes that indicate what the current slide is
+        allSlideItems.forEach(element => {
             element.classList.remove("image-slider-item--current");
         });
 
-        // prev
+        // add the current slide class to the prev(now current) slide
         prevSlide.classList.add("image-slider-item--current")
 
-
+// prev slide
     } else if(currentBtn.classList.contains("next-slide-btn")) {
         console.log("the next btn")
 
         /*counter*/
         counter+=100;
-
+        // move slide
         imageContainer.style = `transform: translateX(${-counter}%)`;
-
-        items.forEach(element => {
+        // remove all classes that indicate what the current slide is
+        allSlideItems.forEach(element => {
             element.classList.remove("image-slider-item--current");
         });
-
-        // next
-        nextSlide.classList.add("image-slider-item--current")
+        // add the current slide class to the next(now current) slide
+        nextSlide.classList.add("image-slider-item--current");
     }
-
-    console.log(counter)
 }
 
 containerInner.addEventListener("click", slide);
 
 
+
+
+
 let dotsSlide = event => {
-    // console.log(event.target)
+    let currentSlide = document.querySelector(".image-slider-item--current");
+    let prevSlide = currentSlide.previousElementSibling;
+    let nextSlide = currentSlide.nextElementSibling;
+    let items = Array.from(slideItems.children);
+    let dotItem = Array.from(dots.children);
+
+    console.log(dotItem)
+
     if(event.target.classList.contains("dot")) {
-        // counter+=100;
-        // console.log("hay")
+        let currentIndex = 0;
     }
+    console.log(counter)
 }
 
-dots.addEventListener("click", dotsSlide)
+dots.addEventListener("click", dotsSlide);
