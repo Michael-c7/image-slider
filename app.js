@@ -22,7 +22,9 @@ let prevSlideBtn = document.querySelector(".prev-slide-btn");
 let nextSlideBtn = document.querySelector(".next-slide-btn");
 let slidesTotalAmt = slides.length;
 let imageContainer = document.querySelector(".images-container");
-// console.log(slides.length)
+/*dots*/
+let dotsAll = document.querySelector(".dots").children;
+
 
 
 
@@ -30,6 +32,7 @@ let imageContainer = document.querySelector(".images-container");
 let index = 0;
 prevSlideBtn.addEventListener("click", function() {
     sliderFunctionality("prev")
+    // console.log("hey in prev btn")
 });
 
 nextSlideBtn.addEventListener("click", function() {
@@ -37,29 +40,40 @@ nextSlideBtn.addEventListener("click", function() {
 });
 
 
-let sliderFunctionality = slideDirection => {
-    console.log(index)
 
+
+let sliderFunctionality = slideDirection => {
     if(slideDirection === "next") {
         index++;
         if(index === slidesTotalAmt) {
            index = 0;
-           console.log(index)
-        } else {
-            // if(index === 0) {
-            //     index = slidesTotalAmt - 1;
-            // } else {
-            //     index--;
-            // }
         }
-
+    }
+    else {
+        if(index === 0) {
+          index = slidesTotalAmt - 1;
+        } else {
+          index--;
+        }
+      }
         for(let i = 0; i < slides.length; i++) {
             slides[i].classList.remove("image-slider-item--current")
+            dotsAll[i].classList.remove("dot--current")
         }
         slides[index].classList.add("image-slider-item--current")
+        dotsAll[index].classList.add("dot--current")
         imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
-    }
 }
 
 
-console.log(-Number(index +  "00") )
+// console.log(-Number(index +  "00") )
+
+/*
+for(let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("image-slider-item--current")
+        dotsAll[i].classList.remove("dot--current")
+    }
+    slides[index].classList.add("image-slider-item--current")
+    dotsAll[index].classList.add("dot--current")
+    imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
+*/
