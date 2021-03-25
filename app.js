@@ -1,83 +1,86 @@
+/*TODO
+1. place slide w/ javascript & not css
+*/
+
+
+
+
+
+
+let slides = document.querySelector(".image-slider-items").children;
 let prevSlideBtn = document.querySelector(".prev-slide-btn");
-let NextSlideBtn = document.querySelector(".next-slide-btn");
-let slideItems = document.querySelector(".image-slider-items");
-
-let containerInner = document.querySelector(".container__inner")
-let imageContainer = document.querySelector(".images-container")
+let nextSlideBtn = document.querySelector(".next-slide-btn");
+let slidesTotalAmt = slides.length;
+let imageContainer = document.querySelector(".images-container");
+/*dots get the parent item of all the dots*/
 let dots = document.querySelector(".dots");
-
-let counter = 0;
-
-
+/*dotsAll gets all of the individual dots(put them in an array)*/
+let dotsAll = Array.from(document.querySelector(".dots").children);
 
 
 
-function slide(event) {
-    let currentSlide = document.querySelector(".image-slider-item--current");
-    let prevSlide = currentSlide.previousElementSibling;
-    let nextSlide = currentSlide.nextElementSibling;
-    let allSlideItems = Array.from(slideItems.children)
 
-    /*btn*/
-    let currentBtn = event.target.closest(".slide-btn");
 
-    // let SlidesIndexesArr = allSlideItems.map((item, index) =>  index);
-    // let slideIndexFirst = allSlideItems[0];
-    // let slideIndexLast = parseInt(SlidesIndexesArr.slice(SlidesIndexesArr.length - 1));
-    // let slideLastPositionNumber = Number(slideIndexLast + "00");
+let index = 0;
+prevSlideBtn.addEventListener("click", function() {
+    sliderFunctionality("prev")
+});
 
-// next slide
-    if(currentBtn.classList.contains("prev-slide-btn")) {
-        console.log("the prev btn")
+nextSlideBtn.addEventListener("click", function() {
+    sliderFunctionality("next")
+});
 
-        /*counter*/
-        counter-=100;
-        // move slide
-        imageContainer.style = `transform: translateX(${-counter}%)`;
-        // remove all classes that indicate what the current slide is
-        allSlideItems.forEach(element => {
-            element.classList.remove("image-slider-item--current");
-        });
+dots.addEventListener("click", dotsSliderFunc);
 
-        // add the current slide class to the prev(now current) slide
-        prevSlide.classList.add("image-slider-item--current")
 
-// prev slide
-    } else if(currentBtn.classList.contains("next-slide-btn")) {
-        console.log("the next btn")
-
-        /*counter*/
-        counter+=100;
-        // move slide
-        imageContainer.style = `transform: translateX(${-counter}%)`;
-        // remove all classes that indicate what the current slide is
-        allSlideItems.forEach(element => {
-            element.classList.remove("image-slider-item--current");
-        });
-        // add the current slide class to the next(now current) slide
-        nextSlide.classList.add("image-slider-item--current");
+function dotsSliderFunc (event) {
+    /*get the clicked index*/
+    let currentDotIndex = 0;
+    event.target.classList.add("dot--clicked");
+    for(let i = 0; i < dotsAll.length; i++) {
+        if(dotsAll[i].classList.contains("dot--clicked")) {
+            currentDotIndex = i;
+        }
     }
+    // remove the dot--clicked class
+    dotsAll.forEach(item => {
+        item.classList.remove("dot--clicked");
+    })
+    /*updating index w/ the dots index that you clicked on*/
+    index = currentDotIndex;
+
+    /*updating slides & dots*/
+    for(let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("image-slider-item--current")
+        dotsAll[i].classList.remove("dot--current")
+    }
+    slides[index].classList.add("image-slider-item--current")
+    dotsAll[index].classList.add("dot--current")
+
+    /*updating the slides*/
+    imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
 }
 
-containerInner.addEventListener("click", slide);
 
-
-
-
-
-let dotsSlide = event => {
-    let currentSlide = document.querySelector(".image-slider-item--current");
-    let prevSlide = currentSlide.previousElementSibling;
-    let nextSlide = currentSlide.nextElementSibling;
-    let items = Array.from(slideItems.children);
-    let dotItem = Array.from(dots.children);
-
-    console.log(dotItem)
-
-    if(event.target.classList.contains("dot")) {
-        let currentIndex = 0;
+let sliderFunctionality = slideDirection => {
+    if(slideDirection === "next") {
+        index++;
+        if(index === slidesTotalAmt) {
+           index = 0;
+        }
     }
-    console.log(counter)
+    else {
+        if(index === 0) {
+          index = slidesTotalAmt - 1;
+        } else {
+          index--;
+        }
+      }
+        for(let i = 0; i < slides.length; i++) {
+            slides[i].classList.remove("image-slider-item--current")
+            dotsAll[i].classList.remove("dot--current")
+        }
+        slides[index].classList.add("image-slider-item--current")
+        dotsAll[index].classList.add("dot--current")
+        imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
 }
-
-dots.addEventListener("click", dotsSlide);

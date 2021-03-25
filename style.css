@@ -57,17 +57,19 @@ body {
     border:none;
     background:none;
     font-size:1.5rem;
-    transition: opacity 0.25s ease;
+    transition: all 0.25s ease;
     z-index:10;
 }
 
 .slide-btn:hover {
     cursor: pointer;
     opacity:0.7;
+    color:var(--red);
 }
 
 .slide-btn:active {
     opacity:1;
+    color:var(--red);
 }
 
 /*move the image-container to slide the images right / left*/
@@ -148,7 +150,9 @@ body {
 
 
 
-
+/* .prev-slide-btn {
+    visibility: hidden;
+} */
 
 /*placement of the images,
 replace this later w/ javascript*/
