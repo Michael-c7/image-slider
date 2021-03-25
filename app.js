@@ -1,18 +1,5 @@
 /*TODO
-
-
-1. get the dots working
-- move slides w/ what dot you click on
-    when you click on a dot (that not currently selected)
-    1. you get the index of that dot
-    2. you remove all the current--dot class from every dot
-    3. you add the class current--dot to the dot you clicked on
-    4. you set the index(global variable)
-    equal to the index of the dot that you clicked on
-
-
-
-2. place slide w/ javascript & not css
+1. place slide w/ javascript & not css
 */
 
 
@@ -43,15 +30,35 @@ nextSlideBtn.addEventListener("click", function() {
     sliderFunctionality("next")
 });
 
-
 dots.addEventListener("click", dotsSliderFunc);
 
+
 function dotsSliderFunc (event) {
-    /*need the clicked index */
+    /*get the clicked index*/
+    let currentDotIndex = 0;
+    event.target.classList.add("dot--clicked");
     for(let i = 0; i < dotsAll.length; i++) {
-        console.log(dotsAll[i])
+        if(dotsAll[i].classList.contains("dot--clicked")) {
+            currentDotIndex = i;
+        }
     }
-    console.log(event.target)
+    // remove the dot--clicked class
+    dotsAll.forEach(item => {
+        item.classList.remove("dot--clicked");
+    })
+    /*updating index w/ the dots index that you clicked on*/
+    index = currentDotIndex;
+
+    /*updating slides & dots*/
+    for(let i = 0; i < slides.length; i++) {
+        slides[i].classList.remove("image-slider-item--current")
+        dotsAll[i].classList.remove("dot--current")
+    }
+    slides[index].classList.add("image-slider-item--current")
+    dotsAll[index].classList.add("dot--current")
+
+    /*updating the slides*/
+    imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
 }
 
 
