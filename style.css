@@ -149,18 +149,13 @@ body {
 }
 
 
-
-/* .prev-slide-btn {
-    visibility: hidden;
-} */
-
 /*placement of the images,
 replace this later w/ javascript*/
-.image-slider-item:nth-child(1) {
+/* .image-slider-item:nth-child(1) {
     transform: translateX(0%);
-}
+} */
 
-.image-slider-item:nth-child(2) {
+/* .image-slider-item:nth-child(2) {
     transform: translateX(100%);
 }
 
@@ -174,5 +169,4 @@ replace this later w/ javascript*/
 
 .image-slider-item:nth-child(5) {
     transform: translateX(400%);
-}
-
+} */

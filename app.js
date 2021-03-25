@@ -1,12 +1,3 @@
-/*TODO
-1. place slide w/ javascript & not css
-*/
-
-
-
-
-
-
 let slides = document.querySelector(".image-slider-items").children;
 let prevSlideBtn = document.querySelector(".prev-slide-btn");
 let nextSlideBtn = document.querySelector(".next-slide-btn");
@@ -34,7 +25,7 @@ dots.addEventListener("click", dotsSliderFunc);
 
 
 function dotsSliderFunc (event) {
-    /*get the clicked index*/
+    /*get index of the dot that you clicked on*/
     let currentDotIndex = 0;
     event.target.classList.add("dot--clicked");
     for(let i = 0; i < dotsAll.length; i++) {
@@ -84,3 +75,16 @@ let sliderFunctionality = slideDirection => {
         dotsAll[index].classList.add("dot--current")
         imageContainer.style = `transform: translateX(${-Number(index +  "00")}%)`;
 }
+
+
+
+
+
+let slidePlacement = _ => {
+    for(let i = 0; i < slides.length; i++) {
+        let num = Number( i + "00");
+        slides[i].style = `transform: translateX(${num}%)`;
+    }
+}
+
+slidePlacement()
